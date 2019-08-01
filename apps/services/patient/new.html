@@ -1,0 +1,441 @@
+<html>
+  <head>
+    <title>BHT-HMIS - New Patient</title>
+    <link rel="stylesheet" href="/assets/css/patient-reg.css" />
+    <link rel="stylesheet" href="/assets/fontawesome/css/all.css" />
+    <link rel="stylesheet" href="/assets/css/datetimebox.css" />
+
+    <script type="text/javascript" src="/assets/js/api-utils.js"></script>
+    <script type="text/javascript" src="/assets/js/form-utils.js"></script>
+    <script type="text/javascript" src="/assets/js/patient-reg.js"></script>
+  </head>
+  <body>
+    <div class="reg-wrapper">
+      <div ui-view="layout" id="view-content">
+        <div ng-include="" src="'views/header.html'" class="reg-header-wrapper header-wrapper">
+          <header class="reg-header" ng-controller="NavigationController">
+            <ul class="top-nav fl">
+              <a class="back-btn" accesskey="h" href="/apps/services/clinical/home.html">
+                <i class="fa fa-home"></i>
+              </a>
+              <li>
+                <a accesskey="e" href="/apps/services/patient/home.html">
+                  <i class="fa-search fa fa-white small"></i>
+                    <span class="nav-link">S<u>e</u>arch</span>
+                </a>
+              </li>
+              <li>
+                <a accesskey="n">
+                  <i class="fa-plus fa fa-white small"></i>
+                    <span class="nav-link">New Patient</span>
+                </a>
+              </li>
+            </ul>
+            <div class="reg-header-right fr">
+              <div ui-view="headerExtension" class="print-action-items fl"></div>
+              <button class="btn-user-info fr">
+                <i class="fa fa-user-md fa-white small"></i>
+                <i class="fa fa-caret-down fa-white mini"></i>
+              </button>
+              <ul>
+                <li>
+                  <a>
+                    <i class="fa fa-user fa-white small"></i>
+                    <span>superman</span>
+                  </a>
+                </li>
+                <li>
+                  <i class="fa fa-map-marker fa-white small"></i>
+                  <span>Registration</span>
+                </li>
+                <li>
+                  <a log-out="">
+                    <i class="fa fa-power-off fa-white small"></i>
+                    <span class="nav-link">Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </header>
+        </div>
+        <div ui-view="content" class="container">
+          <div class="reg-body-wrapper">
+            <div class="simple-form-ui new-patient">
+              <form name="myForm" id="patientRegistrationForm" class="form-horizontal well">
+                <div class="box-container box-container-default">
+                  <legend class="registraion_legend first-registraion_legend">
+                    <span class="mylegend"><strong>PATIENT DEMOGRAPHICS</strong></span>
+                  </legend>
+                </div>
+                <div ng-include="'views/patientcommon.html'">
+                  <div ng-controller="PatientCommonController">
+                    <div class="box-container box-container-patient-info patient-common-info-container">
+                      <section>
+                        <article class="form-field patient-name-wrapper">
+                          <div class="field-attribute">
+                            <label for="patientName">Patient Name<span class="asterick">*</span></label>
+                          </div>
+                          <div class="field-value patient-name" id="patientName">
+                            <span>
+                              <input type="text" id="given_name" 
+                                placeholder="First Name" title="Should contain characters" 
+                                regex="" class="" 
+                                name="given_name" required="required">
+                            </span>
+                            <span>
+                              <input type="text" id="middle_name" 
+                                placeholder="Middle Name" title="Should contain characters" 
+                                regex="" class="" 
+                                name="middle_name">
+                            </span>
+                            <span>
+                              <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                              <input type="text" id="family_name" 
+                                placeholder="Family Name" title="Should contain characters" 
+                                regex="" class="" 
+                                name="family_name" autocomplete="off" required="required">
+                            </span>
+                          </div>
+                        </article>
+                      </section>
+                      <section class="form-field form-field-gender">
+                        <article class="form-field">
+                          <div class="field-attribute">
+                            <label for="gender">Gender <span class="asterick">*</span></label>
+                          </div>
+                          <div class="field-value">
+                            <select id="gender" required="required" title="Select Gender" 
+                              class="" name="gender">
+                              <option value="" selected="selected">Select Gender</option>
+                              <option label="Male" value="M">Male</option>
+                              <option label="Female" value="F">Female</option>
+                            </select>
+                          </div>
+                        </article>
+                      </section>
+                      <section class="age-wrapper">
+                        <div>
+                          <!--article class="form-field form-field-ipad" id="age">
+                            <div class="field-attribute">
+                              <label for="ageYears">Age<span class="asterick">*</span></label>
+                            </div>
+                            <div class="field-value age-field">
+                              <div class="input-prepend">
+                                <span class="add-on">Years</span>
+                                <input type="number" id="ageYears" name="ageYear" 
+                                  max="120" min="0" title="Years must be a number" 
+                                  class="" required="required">
+                              </div>
+                              <div class="input-prepend">
+                                <span class="add-on">Months</span>
+                                <input type="number" id="ageMonths" name="ageMonths" 
+                                  max="12" min="0" title="Months must be 0-12" 
+                                  class="" required="required">
+                              </div>
+                              <div class="input-prepend">
+                                <span class="add-on">Days</span>
+                                <input type="number" id="ageDays" name="ageDays" 
+                                  max="31" min="0" title="Days must be 0-31" 
+                                  class="" required="required">
+                              </div>
+                            </div>
+                          </article-->
+                          <article class="form-field dob-birthtime-wrapper" id="dob">
+                            <div class="field-attribute">
+                              <label for="birthdate">Date of Birth
+                                <span class="asterick">*</span>
+                              </label>
+                            </div>
+                            <div class="field-value">
+                              <input id="birthdate" type="date" max="2019-05-16"
+                                name="birthdate" class="" required="required">
+                            </div>
+                            <div class="showOn-desktop-registration">
+                              <div class="field-value">
+                                <input type="checkbox" class="">
+                              </div>
+                              <div class="field-attribute estimated-label">
+                                <label for="birthdate">Estimated</label>
+                              </div>
+                            </div>
+                            <div class="showOn-small-screen-registration clearfix">
+                              <div class="field-attribute estimated-label">
+                                <label for="birthdate">Estimated</label>
+                              </div>
+                              <div class="field-value">
+                                <input type="checkbox" name="birthdate_estimated" class="">
+                              </div>
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                      <legend class="registraion_legend">
+                        <span class="mylegend"> Patient Address Information</span>
+                      </legend>
+                      <section >
+                        <section class="form-field-inline">
+                          <article class="form-field">
+                            <div class="field-attribute">
+                              <label for="region-of-origin">Region of Origin
+                                <span class="asterick">*</span>
+                              </label>
+                            </div>
+                            <div class="field-value">
+                            <select id="home_region" required="required" title="Select Home Region" 
+                              class="" name="home_region">
+                              <option value="" selected="selected">Select Region</option>
+                              <option label="North" value="North">North</option>
+                              <option label="Central" value="Central">Central</option>
+                              <option label="South" value="South">South</option>
+                              <option label="Foreign" value="Foreign">Foreign</option>
+                            </select>
+                          </div>
+                        </article>
+                        <article class="form-field right-form-field">
+                          <div class="field-attribute">
+                            <label for="current-region">Current Region
+                              <span class="asterick">*</span>
+                            </label>
+                          </div>
+                          <div class="field-value">
+                            <select id="current_region" required="required" title="Select Current Region"
+                              class="" name="current_region">
+                              <option value="" selected="selected">Select Current Region</option>
+                              <option label="North" value="North">North</option>
+                              <option label="Central" value="Central">Central</option>
+                              <option label="South" value="South">South</option>
+                              <option label="Foreign" value="Foreign">Foreign</option>
+                            </select>
+                          </div>
+                        </article>
+                      </section>
+                      <section class="form-field-inline">
+                        <article class="form-field">
+                          <div class="field-attribute">
+                            <label for="home-district">Home District
+                              <span class="asterick">*</span>
+                            </label>
+                          </div>
+                          <div class="field-value">
+                            <select id="home_district" required="required" title="Select Home District" 
+                              class="" name="home_district">
+                              <option value="" selected="selected">Select Home District</option>
+                              <option label="Blantyre" value="Blantyre">Blantyre</option>
+                              <option label="Thyolo" value="Thyolo">Thyolo</option>
+                              <option label="Mulanje" value="Mulanje">Mulanje</option>
+                              <option label="Chiradzulu" value="Chiradzulu">Chiradzulu</option>
+                            </select>
+                          </div>
+                        </article>
+                        <article class="form-field right-form-field">
+                          <div class="field-attribute">
+                            <label for="current-district">Current District
+                              <span class="asterick">*</span>
+                            </label>
+                          </div>
+                          <div class="field-value">
+                            <select id="current_district" required="required" title="Select Current District" 
+                              class="" name="current_district">
+                              <option value="" selected="selected">Select Current District</option>
+                              <option label="Blantyre" value="Blantyre">Blantyre</option>
+                              <option label="Thyolo" value="Thyolo">Thyolo</option>
+                              <option label="Mulanje" value="Mulanje">Mulanje</option>
+                              <option label="Chiradzulu" value="Chiradzulu">Chiradzulu</option>
+                              <option label="Mwanza" value="Mwanza">Mwanza</option>
+                              <option label="Chikwawa" value="Chikwawa">Chikwawa</option>
+                              <option label="Nsanje" value="Nsanje">Nsanje</option>
+                              <option label="Zomba" value="Zomba">Zomba</option>
+                            </select>
+                          </div>           
+                        </article>
+                      </section>
+                      <section class="form-field-inline">
+                        <article class="form-field">
+                          <div class="field-attribute">
+                            <label for="home-ta">Home T/A
+                              <span class="asterick">*</span>
+                            </label>
+                          </div>
+                          <div class="field-value">
+                            <select id="home_traditional_authority" required="required" title="Select Home T/A" 
+                              class="" name="home_traditional_authority">
+                              <option value="" selected="selected">Select Home T/A</option>
+                              <option label="Chigaru" value="Chigaru">Chigaru</option>
+                              <option label="Kapeni" value="Kapeni">Kapeni</option>
+                              <option label="Kuntaja" value="Kuntaja">Kuntaja</option>
+                              <option label="Kunthembwe" value="Kunthembwe">Kunthembwe</option>
+                            </select>
+                          </div>
+                        </article>
+                        <article class="form-field right-form-field">
+                          <div class="field-attribute">
+                            <label for="current-ta">Current T/A
+                              <span class="asterick">*</span>
+                            </label>
+                          </div>
+                          <div class="field-value">
+                            <select id="current_traditional_authority" required="required" title="Select Current T/A" 
+                              class="" name="current_traditional_authority">
+                              <option value="" selected="selected">Select Current T/A</option>
+                              <option label="Chikumbu" value="Chikumbu">Chikumbu</option>
+                              <option label="Juma" value="Juma">Juma</option>
+                              <option label="Mabuka" value="Mabuka">Mabuka</option>
+                              <option label="Njema" value="Njema">Njema</option>
+                              <option label="Nthiramanja" value="Nthiramanja">Nthiramanja</option>
+                              <option label="Nkanda" value="Nkanda">Nkanda</option>
+                            </select>
+                          </div>           
+                        </article>
+                      </section>
+                      <section class="form-field-inline">
+                        <article class="form-field">
+                          <div class="field-attribute">
+                            <label for="home-village">Home Village
+                              <span class="asterick">*</span>
+                            </label>
+                          </div>
+                          <div class="field-value">
+                            <select id="home_village" required="required" title="Select Home Village" 
+                              class="" name="home_village">
+                              <option value="" selected="selected">Select Home Village</option>
+                              <option label="Bamusi" value="Chigaru">Bamusi</option>
+                              <option label="Belo" value="Belo">Belo</option>
+                              <option label="Bonongwe" value="Bonongwe">Bonongwe</option>
+                              <option label="Bwanali" value="Bwanali">Bwanali</option>
+                            </select>
+                          </div>
+                        </article>
+                        <article class="form-field right-form-field">
+                          <div class="field-attribute">
+                            <label for="current-village">Current Village
+                              <span class="asterick">*</span>
+                            </label>
+                          </div>
+                          <div class="field-value">
+                            <select id="current_village" required="required" title="Select Current Village" 
+                              class="" name="current_village">
+                              <option value="" selected="selected">Select Current Village</option>
+                              <option label="Chapilira" value="Chapilira">Chapilira</option>
+                              <option label="Chiliwekha" value="Chiliwekha">Chiliwekha</option>
+                              <option label="Chimpilingu" value="Chimpilingu">Chimpilingu</option>
+                              <option label="Chongwe" value="Chingwe">Chongwe</option>
+                              <option label="Chitsa" value="Chitsa">Chitsa</option>
+                              <option label="Chingwe" value="Chingwe">Chingwe</option>
+                            </select>
+                          </div>           
+                        </article>
+                      </section>
+                      <section class="form-field-inline">
+                        <article class="form-field">
+                          <div class="field-attribute">
+                            <label for="countyDistrict">Home address same as current address
+                              <span class="asterick">*</span>
+                            </label>
+                          </div>
+                          <div class="field-value">
+                            <input class="input-label-inline" type="checkbox" id="hasSameAddress">
+                          </div>
+                        </article>
+                      </section>
+                    </section>
+                    <legend class="registraion_legend">
+                      <span class="mylegend">Identifiers</span>
+                    </legend>
+                    <section>
+                      <section>
+                        <div>
+                          <article class="form-field">
+                            <div class="field-attribute">
+                              <label class="control-label" for="patientID">National ID
+                                <span ng-show="::identifier.identifierType.required &amp;&amp; !identifier.hasIdentifierSources()" class="asterick ng-hide">*</span>
+                              </label>
+                            </div>
+                            <div class="field-value" id="patientNID">
+                              <input type="text" id="registrationNumber" class="">
+                            </div>
+                          </article>
+                        </div>
+                      </section>
+                    </section>
+                    <legend class="registraion_legend">
+                      <span class="mylegend"><b>RELATIONSHIP</b></span>
+                    </legend>
+                    <div class="">
+                      <div class="relationships-container form">
+                        <div class="new-relationship">
+                            <div class="row">
+                              <div class="col col1 form-field">
+                                <div class="field-attribute showOn-small-screen">
+                                  <label>Relationship Type</label>
+                                </div>
+                                <div class="field-value">
+                                  <select class="">
+                                    <option value="" selected="selected">Select Relationship Type</option>
+                                    <option label="Doctor" value="">Doctor</option>
+                                    <option label="Sibling" value="">Sibling</option>
+                                    <option label="Parent" value="">Parent</option>
+                                    <option label="Supervisor" value="">Supervisor</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col col2 form-field">
+                                <div class="field-attribute showOn-small-screen">
+                                  <label>Enter Name/ ID</label>
+                                </div>
+                                <div class="field-value" >
+                                  <input type="text" placeholder="Enter Name or ID" class="ng-pristine ng-untouched ng-valid" disabled="disabled">
+                                  <input type="hidden" class="ng-pristine ng-untouched ng-valid">
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="submit-btn-container clearfix">
+                    <span>
+                      <span>
+                        <div class="right">
+                          <div class="split-button">
+                            <button class="toggle-button fa fa-caret-down" type="button"></button>
+                              <ul class="options">
+                                <li class="primaryOption">
+                                  <button class="buttonClass" onmousedown="registerPatient()">Start OPD visit</button>
+                                </li>
+                                <ul class="hidden-options">
+                                  <li class="secondaryOption" style="display: none;">
+                                    <button class="buttonClass">Start EMERGENCY visit</button>
+                                  </li>
+                                  <li class="secondaryOption" style="display: none;">
+                                    <button class="buttonClass" >Start PHARMACY VISIT visit</button>
+                                  </li>
+                                  <li class="secondaryOption" style="display: none;">
+                                    <button class="buttonClass" >Start Field visit</button>
+                                  </li>
+                                  <li class="secondaryOption" style="display: none;">
+                                    <button class="buttonClass">Start LAB VISIT visit</button>
+                                  </li>
+                                  <li class="secondaryOption" style="display: none;">
+                                    <button class="buttonClass">Start IPD visit</button>
+                                  </li>
+                                  <li class="secondaryOption" style="display: none;">
+                                    <button class="buttonClass" >Start Special OPD visit</button>
+                                  </li>
+                                </ul>
+                              </ul>
+                          </div>
+                        </div>
+                      </span>
+                    </span>
+                      <button type="submit" class="right submit-btn"><u>S</u>ave</button>
+                  </div>
+                </form>
+              <br>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </body>
+</html>

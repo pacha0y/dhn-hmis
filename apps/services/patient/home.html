@@ -1,0 +1,113 @@
+<html>
+  <head>
+    <title>BHT - Patient</title>
+    <link href="/assets/css/common.css" rel="stylesheet" />
+    <link href="/assets/css/patient-reg.css" rel="stylesheet" />
+    <link href="/assets/fontawesome/css/all.css" rel="stylesheet" />
+    <link href="/assets/css/jquery-ui-1.10.4.custom.min.css" />
+  </head>
+  <body>
+    <div class="reg-wrapper">
+      <div ui-view="layout" id="view-content">
+        <div ng-include="" src="'views/header.html'" class="reg-header-wrapper header-wrapper">
+          <header class="reg-header" ng-controller="NavigationController">
+            <ul class="top-nav fl">
+              <a class="back-btn" accesskey="h" href="/apps/services/clinical/home.html">
+                <i class="fa fa-home"></i>
+              </a>
+              <li>
+                <a accesskey="e">
+                  <i class="fa-search fa fa-white small"></i>
+                    <span class="nav-link">S<u>e</u>arch</span>
+                </a>
+              </li>
+              <li>
+                <a accesskey="n" href="/apps/services/patient/new.html">
+                  <i class="fa-plus fa fa-white small"></i>
+                    <span class="nav-link">New Patient</span>
+                </a>
+              </li>
+            </ul>
+            <div class="reg-header-right fr">
+              <div ui-view="headerExtension" class="print-action-items fl"></div>
+                <button class="btn-user-info fr">
+                  <i class="fa fa-user-md fa-white small"></i>
+                  <i class="fa fa-caret-down fa-white mini"></i>
+                </button>
+                <ul>
+                  <li>
+                    <a>
+                      <i class="fa fa-user fa-white small"></i><span>superman</span>
+                    </a>
+                  </li>
+                  <li>
+                    <i class="fa fa-map-marker fa-white small"></i><span>Registration</span>
+                  </li>
+                  <li>
+                    <a log-out="">
+                      <i class="fa fa-power-off fa-white small"></i>
+                        <span class="nav-link">Logout</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </header>
+          </div>
+          <div ui-view="content" class="container">
+            <section class="reg-search-wrapper">
+        <section class="reg-search">
+            <!-- ngIf: ::patientIdentifierSearchConfig.show --><article class="search-seperator-l" ng-if="::patientIdentifierSearchConfig.show">
+                <form name="searchByIdForm" ng-submit="searchById()" class="simple-form-ui clearfix ng-pristine ng-valid">
+                        <label for="registrationNumber"><strong>ID</strong></label>
+                        <div class="search-patient-id fl">
+                            <input tabindex="2" class="fl ng-pristine ng-valid ng-touched" type="text" id="registrationNumber" ng-model="searchParameters.registrationNumber" focus-me="true" placeholder="Enter ID">
+                            <div class="reg-srch-btn fl">
+                                <button tabindex="3" type="submit" ng-disabled="!searchParameters.registrationNumber" disabled="disabled">Search</button>
+                            </div>
+                        </div>
+    
+                </form>
+            </article><!-- end ngIf: ::patientIdentifierSearchConfig.show -->
+            <article class="search-seperator-r">
+                <form name="searchByNameForm" ng-submit="searchPatients()" class="simple-form-ui ng-pristine ng-valid">
+    
+                    <article class="fl">
+                        <label for="name"><strong>Given Name</strong></label>
+                        <input tabindex="4" type="text" id="name" ng-model="searchParameters.name" placeholder="Enter Name" class="ng-pristine ng-untouched ng-valid">
+                    </article>
+                    <!-- ngIf: ::customAttributesSearchConfig.show --><article class="fl" ng-if="::customAttributesSearchConfig.show">
+                        <label for="name"><strong>Family Name</strong></label>
+                        <input tabindex="5" type="text" id="customAttribute" ng-model="searchParameters.customAttribute" placeholder="" class="ng-pristine ng-untouched ng-valid">
+                    </article><!-- end ngIf: ::customAttributesSearchConfig.show -->
+                    <!-- ngIf: ::addressSearchConfig.show -->
+                    <article class="fl" ng-if="::addressSearchConfig.show">
+                        <label for="name"><strong>Rural Ward</strong></label>
+                        <input tabindex="6" type="text" id="addressFieldValue" ng-model="searchParameters.addressFieldValue" placeholder="Enter ward" class="ng-pristine ng-untouched ng-valid">
+                    </article><!-- end ngIf: ::addressSearchConfig.show -->
+    
+                    <article class="fl ng-hide" ng-show="::programAttributesSearchConfig.show">
+                        <label for="name"><strong></strong></label>
+                        <input tabindex="7" type="text" id="programAttribute" ng-model="searchParameters.programAttributeFieldValue" placeholder="" class="ng-pristine ng-untouched ng-valid">
+                    </article>
+    
+                    <article class="fl">
+                        <div class="reg-srch-btn">
+                            <button tabindex="8" type="submit" ng-disabled="disableSearchButton()" disabled="disabled">Search</button>
+                        </div>
+                    </article>
+                </form>
+    
+            </article>
+        </section>
+    
+        <!-- ngIf: noResultsMessage -->
+    
+        <!-- ngIf: resultsPresent() -->
+    
+        <div id="loader" ng-show="loadingMoreResults()" class="ng-hide"></div>
+    
+        <!-- ngIf: noMoreResultsPresent -->
+    </section></div></div>
+            </div>
+  </body>
+</html>
